@@ -120,7 +120,7 @@ export function ActivityScreen() {
                   }`}
                 >
                   {!showExample && (
-                    <span className="text-sm font-bold">📖 책 속 문장 보기</span>
+                    <span className="text-xl">💡</span>
                   )}
                   {showExample && (
                     <motion.div

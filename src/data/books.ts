@@ -147,14 +147,14 @@ export const BOOKS: Book[] = [
     questions: [
       {
         id: 'school-q1',
-        sentence: '초록불이 켜지면 _____ 을 건너요.',
+        sentence: '버스가 _____ 앞에 멈춰요.',
         blankWord: '횡단보도',
         hint: '차도를 안전하게 건너는 줄무늬 길이에요.',
         example: '앞을 잘 보고 장난도 안 치고 얼른 횡단보도를 건넜어요.',
       },
       {
         id: 'school-q2',
-        sentence: '차들이 도로 위를 _____ 달려요.',
+        sentence: '자전거를 타고 _____ 달려요.',
         blankWord: '쌩쌩',
         hint: '바람을 가르며 빠르게 달리는 소리예요.',
         example: '큰길로 나가 차들이 쌩쌩 달리는 네거리에 닿았어요.',
