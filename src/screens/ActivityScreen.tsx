@@ -20,6 +20,7 @@ export function ActivityScreen() {
   const { book, currentQuestion, currentIndex, totalQuestions, processAnswer, goToNextQuestion } = useQuizSession()
   const [feedback, setFeedback] = useState<Feedback>(null)
   const [choices, setChoices] = useState<string[]>([])
+  const [showExample, setShowExample] = useState(false)
   const { playCorrect, playWrong, playStickerReveal } = useSoundFeedback()
   const navigate = useNavigate()
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -32,6 +33,7 @@ export function ActivityScreen() {
 
   useEffect(() => {
     setFeedback(null)
+    setShowExample(false)
   }, [currentIndex])
 
   useEffect(() => {
@@ -110,18 +112,36 @@ export function ActivityScreen() {
         {!feedback ? (
           <>
             {currentQuestion.example && (
-              <div className="bg-gray-50 border-l-4 border-gray-300 rounded-r-2xl px-4 py-3">
-                <p className="text-sm text-gray-500 font-bold mb-1">📖 책 속 문장</p>
-                <p className="text-sm text-gray-700 leading-relaxed break-keep">
-                  {currentQuestion.example.split(currentQuestion.blankWord).map((part, i, arr) => (
-                    i < arr.length - 1 ? (
-                      <span key={i}>
-                        {part}
-                        <span className={`font-extrabold ${book.color.text}`}>{currentQuestion.blankWord}</span>
-                      </span>
-                    ) : part
-                  ))}
-                </p>
+              <div>
+                <button
+                  onClick={() => setShowExample(v => !v)}
+                  className={`w-full text-left px-4 py-3 rounded-2xl border-2 border-dashed transition-colors ${
+                    showExample ? 'border-transparent bg-gray-50' : `border-gray-300 bg-white ${book.color.text}`
+                  }`}
+                >
+                  {!showExample && (
+                    <span className="text-sm font-bold">📖 책 속 문장 보기</span>
+                  )}
+                  {showExample && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      <p className="text-sm text-gray-500 font-bold mb-1">📖 책 속 문장</p>
+                      <p className="text-sm text-gray-700 leading-relaxed break-keep">
+                        {currentQuestion.example.split(currentQuestion.blankWord).map((part, i, arr) => (
+                          i < arr.length - 1 ? (
+                            <span key={i}>
+                              {part}
+                              <span className={`font-extrabold ${book.color.text}`}>{currentQuestion.blankWord}</span>
+                            </span>
+                          ) : part
+                        ))}
+                      </p>
+                    </motion.div>
+                  )}
+                </button>
               </div>
             )}
             <SentenceDisplay sentence={currentQuestion.sentence} accentColor={book.color.accent} />
